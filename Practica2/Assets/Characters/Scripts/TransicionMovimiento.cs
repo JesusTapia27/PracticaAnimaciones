@@ -33,5 +33,14 @@ public class TransicionMovimiento : MonoBehaviour
         {
             anim.SetBool("IsDancing", false);
         }
+
+        if (Input.GetKey("r"))
+        {
+            anim.SetBool("isRun", true);
+        }
+        if (!Input.GetKey("r"))
+        {
+            anim.SetBool("isRun", false);
+        }
     }
 }
