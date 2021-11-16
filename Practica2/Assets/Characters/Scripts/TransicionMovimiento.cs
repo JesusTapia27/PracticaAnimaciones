@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TransicionMovimiento : MonoBehaviour
 {
+    public float Velocidad = 0.0f;
+    public float aceleracion = 0.1f;
+    public float desaceleracion = 0.5f;
 
     //Animator
     Animator anim;
@@ -16,13 +19,22 @@ public class TransicionMovimiento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("w"))
+        bool MoverseOprimido = Input.GetKey("p");
+        bool DisparoOprimido = Input.GetKey("space");
+
+        if (MoverseOprimido && Velocidad < 1.0f)
         {
-            anim.SetBool("isMove", true);
+            Velocidad += Time.deltaTime * aceleracion;
         }
-        if (!Input.GetKey("w"))
+
+        if (!MoverseOprimido && Velocidad > 0.0f)
         {
-            anim.SetBool("isMove", false);
+            Velocidad -= Time.deltaTime * desaceleracion;
+        }
+
+        if (!MoverseOprimido && Velocidad < 0.0f)
+        {
+            Velocidad = 0.0f;
         }
 
         if (Input.GetKey("e"))
@@ -34,13 +46,17 @@ public class TransicionMovimiento : MonoBehaviour
             anim.SetBool("IsDancing", false);
         }
 
-        if (Input.GetKey("r"))
+        if (Input.GetKey("d"))
         {
-            anim.SetBool("isRun", true);
+            anim.SetBool("Disparando", true);
         }
-        if (!Input.GetKey("r"))
+        if (!Input.GetKey("d"))
         {
-            anim.SetBool("isRun", false);
+            anim.SetBool("Disparando", false);
         }
+
+        anim.SetFloat("Velocidad", Velocidad);
+
+        
     }
 }
